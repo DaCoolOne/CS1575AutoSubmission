@@ -2,7 +2,7 @@
 Designed and built for CS1575, these two scripts automate the process of submitting homework and display the results of the autograder.
 
 # show_results.py
-Opens the file "results.csv" and outputs a nicely formatted list of the results of all the test cases.
+Opens a file passed as a command line argument (defaults to "results.csv") and outputs a nicely formatted list of the results of all the test cases.
 
 ![Sample output](example.PNG)
 
