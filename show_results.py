@@ -99,10 +99,10 @@ if __name__ == "__main__":
             tl = test_name_lines[j] if j < len(test_name_lines) else ''
             rl = result_name_lines[j] if j < len(result_name_lines) else ''
             if len(result_name_lines) > 1:
-                aligned = rl.ljust(RESULT_COLUMN_WIDTH + EXTRA_WIDTH)
+                aligned = rl.ljust(RESULT_COLUMN_WIDTH)
             else:
-                aligned = rl.rjust(RESULT_COLUMN_WIDTH + EXTRA_WIDTH)
+                aligned = rl.rjust(RESULT_COLUMN_WIDTH)
             print(
                 bcolors.OKCYAN + tl.ljust(NAME_COLUMN_WIDTH + EXTRA_WIDTH) + bcolors.ENDC,
-                color + aligned, sep='|')
+                color + aligned, sep='|' + ' ' * EXTRA_WIDTH)
         print(bcolors.ENDC + e)
