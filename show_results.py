@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 # From:
 # https://stackoverflow.com/questions/287871/how-to-print-colored-text-to-the-terminal
 class bcolors:
@@ -18,6 +20,9 @@ RESULT_COLUMN_WIDTH = 110
 
 EXTRA_WIDTH = 1
 
+def rem_quote(line: str):
+    return line[1:-2] if line.startswith('"') and line.endswith('"') else line
+
 def parse(line: str, sep=',') -> str:
     out = []
     in_string = False
@@ -29,7 +34,7 @@ def parse(line: str, sep=',') -> str:
 
         if seg.count('"') % 2 == 1:
             in_string = not in_string
-    return out
+    return [ rem_quote(o) for o in out ]
 
 def constrain_to_size(str_list, size):
     out = []
@@ -64,7 +69,11 @@ def gen_color(c: str) -> str:
     return bcolors.ENDC
 
 if __name__ == "__main__":
-    with open("results.csv") as f:
+    file_name = "results.csv"
+    if len(sys.argv) > 1:
+        file_name = sys.argv[1]
+
+    with open(file_name) as f:
         raw_lines = [ line for line in f.readlines() ]
         lines = []
         in_string = False
@@ -89,7 +98,11 @@ if __name__ == "__main__":
         for j in range(max(len(test_name_lines), len(result_name_lines))):
             tl = test_name_lines[j] if j < len(test_name_lines) else ''
             rl = result_name_lines[j] if j < len(result_name_lines) else ''
+            if len(result_name_lines) > 1:
+                aligned = rl.ljust(RESULT_COLUMN_WIDTH + EXTRA_WIDTH)
+            else:
+                aligned = rl.rjust(RESULT_COLUMN_WIDTH + EXTRA_WIDTH)
             print(
                 bcolors.OKCYAN + tl.ljust(NAME_COLUMN_WIDTH + EXTRA_WIDTH) + bcolors.ENDC,
-                color + rl.rjust(RESULT_COLUMN_WIDTH + EXTRA_WIDTH), sep='|')
+                color + aligned, sep='|')
         print(bcolors.ENDC + e)
