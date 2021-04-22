@@ -13,9 +13,12 @@ if [[ "$(git diff)" != "" ]]; then
     git add .
 fi
 if [[ "$(git diff --staged)" != "" ]]; then
-    echo "Please enter a summary of changes: "
-    read MESSAGE
-    git commit -m "$MESSAGE"
+    #echo "Please enter a summary of changes: "
+    #read MESSAGE
+    #git commit -m "$MESSAGE"
+    
+    # New version of autograder requires this change.
+    git commit -m "test me plz"
 fi
 
 git push
