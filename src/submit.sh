@@ -18,7 +18,7 @@ if [[ "$(git diff --staged)" != "" ]]; then
     #git commit -m "$MESSAGE"
     
     # New version of autograder requires this change.
-    git commit -m "test me plz"
+    git commit -m "test me pls"
 fi
 
 git push
